@@ -7,26 +7,32 @@ var browserSync = require('browser-sync').create();
 gulp.task('hello', function(){
     console.log('Hello luth');
 });
-gulp.task('sass',function(){
+const showHello = () => {
+    console.log("Hello Luth")
+}
+
+const compileSass = () => {
     return gulp.src('app/scss/**/*.scss')
     .pipe(sass()) //using gulp-sass
     .pipe(gulp.dest('app/css'))    
     .pipe(browserSync.reload({
         stream: true
     }))
-})
-gulp.task('browserSync',function(){
+}
+
+const activateBrowserSync = () => {
     browserSync.init({
         server: {
             baseDir : 'app'
         },
     })
-})
-//gulp waych syntax
-gulp.task('default',
-    gulp.series('browserSync',
-        gulp.series('sass')),function(){
-    gulp.watch('app/scss/**/*.scss',gulp.series('sass'));
-})
+}
+
+const watch = () => { gulp.watch('app/scss/**/*.scss',gulp.series('sass')) }
+
+const compile = gulp.series(gulp.parallel(activateBrowserSync, compileSass),watch)
+compile.description = 'compile all source'
+gulp.task('run', compile )
+
 
 
