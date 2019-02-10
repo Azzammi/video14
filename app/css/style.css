@@ -27,7 +27,7 @@ body {
 .facebook{
 	width: 200px;
 	height: 200px;
-	background-image: url(assets/img/Facebook-Ribbon.png);
+	background-image: url(images/Facebook-Ribbon.png);
 	background-repeat: no-repeat;
 	display: inline-block;
 	text-indent: -9999px;

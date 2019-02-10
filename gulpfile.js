@@ -28,9 +28,14 @@ const activateBrowserSync = () => {
     })
 }
 
-const watch = () => { gulp.watch('app/scss/**/*.scss',gulp.series('sass')) }
+const watch = () => { 
+    gulp.watch('app/scss/**/*.scss',compileSass) 
+    // Reloads the browser whenever HTML or JS Files change
+    gulp.watch('app/*.html', browserSync.reload)
+    gulp.watch('app/js/**/*.js',browserSync.reload)
+}
 
-const compile = gulp.series(gulp.parallel(activateBrowserSync, compileSass),watch)
+const compile = gulp.series(gulp.parallel(compileSass, activateBrowserSync, watch),activateBrowserSync)
 compile.description = 'compile all source'
 gulp.task('run', compile )
 
